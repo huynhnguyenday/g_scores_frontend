@@ -45,7 +45,9 @@ function TopGroupAMobileCards({
           </div>
           <div className="grid grid-cols-3 gap-2 border-t border-g-border/60 pt-3">
             <div className="text-center">
-              <p className="text-[10px] text-g-text-muted">{t.reports.colMath}</p>
+              <p className="text-[10px] text-g-text-muted">
+                {t.reports.colMath}
+              </p>
               <p className="mt-0.5 text-base font-medium tabular-nums text-g-text">
                 {row.toan}
               </p>
@@ -97,11 +99,15 @@ export function TopGroupATableSection() {
                   <th className="px-3 py-2 text-g-text">{t.reports.colRank}</th>
                   <th className="px-3 py-2 text-g-text">{t.reports.colSbd}</th>
                   <th className="px-3 py-2 text-g-text">{t.reports.colMath}</th>
-                  <th className="px-3 py-2 text-g-text">{t.reports.colPhysics}</th>
+                  <th className="px-3 py-2 text-g-text">
+                    {t.reports.colPhysics}
+                  </th>
                   <th className="px-3 py-2 text-g-text">
                     {t.reports.colChemistry}
                   </th>
-                  <th className="px-3 py-2 text-g-text">{t.reports.colTotal}</th>
+                  <th className="px-3 py-2 text-g-text">
+                    {t.reports.colTotal}
+                  </th>
                 </tr>
               </thead>
               <tbody>
