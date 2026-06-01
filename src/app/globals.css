@@ -1,26 +1,120 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+:root,
+[data-theme="dark"] {
+  --g-primary: #475bd6;
+  --g-page: #02012b;
+  --g-sidebar: #1e1f3e;
+  --g-sidebar-hover: #2a2a4e;
+  --g-input: #1e1f3e;
+  --g-surface: #1a1b35;
+  --g-border: #2a2a4e;
+  --g-text: #e8eaf6;
+  --g-text-muted: #9ca3c9;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --g-primary: #475bd6;
+  --g-page: #f0f2fa;
+  --g-sidebar: #ffffff;
+  --g-sidebar-hover: #e8ecfa;
+  --g-input: #ffffff;
+  --g-surface: #ffffff;
+  --g-border: #d5daf0;
+  --g-text: #12152e;
+  --g-text-muted: #5c648a;
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-g-primary: var(--g-primary);
+  --color-g-page: var(--g-page);
+  --color-g-sidebar: var(--g-sidebar);
+  --color-g-sidebar-hover: var(--g-sidebar-hover);
+  --color-g-input: var(--g-input);
+  --color-g-surface: var(--g-surface);
+  --color-g-border: var(--g-border);
+  --color-g-text: var(--g-text);
+  --color-g-text-muted: var(--g-text-muted);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  height: 100%;
+  margin: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--g-text);
+  background: var(--g-page);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px var(--g-input) inset !important;
+  box-shadow: 0 0 0 1000px var(--g-input) inset !important;
+  -webkit-text-fill-color: var(--g-text) !important;
+  caret-color: var(--g-text);
+  transition: background-color 9999s ease-out 0s;
+}
+
+@layer base {
+  *,
+  html,
+  body,
+  main,
+  aside,
+  div {
+    scrollbar-width: thin;
+    scrollbar-color: var(--g-sidebar-hover) var(--g-page);
+  }
+
+  *::-webkit-scrollbar,
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar,
+  main::-webkit-scrollbar,
+  aside::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  *::-webkit-scrollbar-track,
+  html::-webkit-scrollbar-track,
+  body::-webkit-scrollbar-track,
+  main::-webkit-scrollbar-track,
+  aside::-webkit-scrollbar-track {
+    background: var(--g-page);
+  }
+
+  *::-webkit-scrollbar-thumb,
+  html::-webkit-scrollbar-thumb,
+  body::-webkit-scrollbar-thumb,
+  main::-webkit-scrollbar-thumb,
+  aside::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      var(--g-sidebar-hover) 0%,
+      var(--g-sidebar) 100%
+    );
+    border: 2px solid var(--g-page);
+    border-radius: 9999px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover,
+  main::-webkit-scrollbar-thumb:hover,
+  aside::-webkit-scrollbar-thumb:hover {
+    background: var(--g-primary);
+  }
+
+  *::-webkit-scrollbar-corner,
+  main::-webkit-scrollbar-corner,
+  aside::-webkit-scrollbar-corner {
+    background: var(--g-page);
+  }
 }
