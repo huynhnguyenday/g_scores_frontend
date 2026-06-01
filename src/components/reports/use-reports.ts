@@ -11,10 +11,16 @@ const keys = {
   topGroupA: () => ["reports", "top-group-a"] as const,
 };
 
+const reportQueryOptions = {
+  staleTime: 5 * 60_000,
+  gcTime: 10 * 60_000,
+} as const;
+
 export function useSubjectDistribution(subject: string) {
   return useQuery({
     queryKey: keys.distribution(subject),
     queryFn: () => fetchSubjectDistribution(subject),
+    ...reportQueryOptions,
   });
 }
 
@@ -22,6 +28,7 @@ export function useAllSubjectsDistribution() {
   return useQuery({
     queryKey: keys.distributionAll(),
     queryFn: fetchAllSubjectsDistribution,
+    ...reportQueryOptions,
   });
 }
 
@@ -29,5 +36,6 @@ export function useTopGroupA() {
   return useQuery({
     queryKey: keys.topGroupA(),
     queryFn: fetchTopGroupA,
+    ...reportQueryOptions,
   });
 }

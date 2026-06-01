@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "@/core/i18n/locale-provider";
+import { prefetchReportsPage } from "@/components/reports/prefetch-reports-page";
 
 const NAV_LINKS = [
   { href: "/dashboard", key: "dashboard" as const },
@@ -11,15 +13,25 @@ const NAV_LINKS = [
   { href: "/settings", key: "settings" as const },
 ];
 
-export function Sidebar() {
+type SidebarProps = {
+  onNavigate?: () => void;
+};
+
+export function Sidebar({ onNavigate }: SidebarProps) {
   const pathname = usePathname();
+  const queryClient = useQueryClient();
   const t = useTranslation();
 
+  function handleReportsPrefetch() {
+    prefetchReportsPage(queryClient);
+  }
+
   return (
-    <aside className="sticky top-0 z-20 flex w-full shrink-0 flex-col border-r border-g-border bg-g-sidebar p-5 shadow-lg md:h-full md:w-56 md:overflow-y-auto lg:w-64">
+    <aside className="flex h-full flex-col overflow-y-auto border-l border-g-border bg-g-sidebar p-5 shadow-2xl md:border-r md:border-l-0 md:shadow-lg">
       <Link
         href="/dashboard"
-        className="mb-8 block text-left text-3xl font-bold tracking-wide text-g-text transition-opacity hover:opacity-90 sm:text-4xl"
+        onClick={onNavigate}
+        className="mb-8 block text-left text-2xl font-bold tracking-wide text-g-text transition-opacity hover:opacity-90 min-[440px]:text-3xl md:text-4xl"
       >
         G-Scores
       </Link>
@@ -33,7 +45,14 @@ export function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`rounded-md px-3 py-2 text-g-text transition-colors hover:bg-g-sidebar-hover ${
+              onClick={onNavigate}
+              onMouseEnter={
+                item.href === "/reports" ? handleReportsPrefetch : undefined
+              }
+              onFocus={
+                item.href === "/reports" ? handleReportsPrefetch : undefined
+              }
+              className={`rounded-md px-3 py-2.5 text-base text-g-text transition-colors hover:bg-g-sidebar-hover min-[440px]:py-2 min-[440px]:text-sm ${
                 active ? "bg-g-sidebar-hover font-bold" : "font-normal"
               }`}
             >

@@ -38,7 +38,7 @@ export default function SettingsPage() {
   }));
 
   return (
-    <div className="mx-auto max-w-lg">
+    <div className="w-full max-w-lg md:mx-auto">
       <Card title={t.settings.title}>
         <div className="flex flex-col gap-8">
           <section>

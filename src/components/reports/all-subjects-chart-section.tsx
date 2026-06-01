@@ -22,7 +22,7 @@ export function AllSubjectsChartSection() {
       {loading && !isError && <ChartSkeleton size="lg" />}
 
       {!loading && !isError && data && (
-        <div className="w-full overflow-x-auto">
+        <div className="w-full">
           <AllSubjectsChart distributions={data} />
         </div>
       )}

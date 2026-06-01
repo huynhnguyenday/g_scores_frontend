@@ -18,7 +18,7 @@ export function SubjectDistributionSection() {
   const [subject, setSubject] = useState(DEFAULT_SUBJECT);
   const { data, isPending, isFetching, isError, error } =
     useSubjectDistribution(subject);
-  const loading = isPending || isFetching;
+  const showSkeleton = isPending && !data;
 
   return (
     <Card title={t.reports.subjectTitle}>
@@ -30,7 +30,7 @@ export function SubjectDistributionSection() {
           id="subject"
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
-          disabled={loading}
+          disabled={isFetching}
         >
           {SUBJECT_KEYS.map((key) => (
             <option key={key} value={key}>
@@ -38,7 +38,7 @@ export function SubjectDistributionSection() {
             </option>
           ))}
         </Select>
-        {data && !loading && (
+        {data && !showSkeleton && (
           <span className="text-sm text-g-text-muted">
             {t.reports.totalStudents}{" "}
             <strong className="text-g-text">
@@ -54,9 +54,9 @@ export function SubjectDistributionSection() {
         <ErrorAlert message={error?.message ?? t.reports.subjectLoadError} />
       )}
 
-      {loading && !isError && <ChartSkeleton size="md" />}
+      {showSkeleton && !isError && <ChartSkeleton size="md" />}
 
-      {!loading && !isError && data && (
+      {!showSkeleton && !isError && data && (
         <ScoreDistributionChart distribution={data} />
       )}
     </Card>
